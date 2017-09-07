@@ -1,0 +1,197 @@
+@model BlogApp.Web.Models.Post
+@using System.Configuration
+@{
+    Layout = null;
+    var posturl = Model.ContentUrl;
+     ViewBag.url = posturl.Replace("amp;", "");
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <!-- Meta tags For video share on Facebook -->
+    <meta property="fb:app_id" content="794410524045806">
+    <meta property="og:url" content="@ViewBag.MetaDescription">
+    <meta property="og:title" content="kazastream">
+    <meta property="og:image" content="@ViewBag.MetaIamge">
+    <meta property="og:description" content="kazastream descriptiom social media">
+    <meta property="og:type" content="video">
+    <meta property="og:video" content="@ViewBag.url">
+    <meta property="og:video:secure_url" content="@ViewBag.url">
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:width" content="480">
+    <meta property="og:video:height" content="360"> 
+    <!-- Meta tags For video share on twitter -->
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:url" content="@ViewBag.MetaDescription">
+    <meta name="twitter:title" content="@Html.DisplayFor(m=>m.Title)" />
+    <meta name="twitter:description" content="@Html.DisplayFor(m=>m.Description)" />
+    <meta name="twitter:image" content="@ViewBag.MetaIamge" />
+    <meta name="twitter:player" content="@ViewBag.MetaDescription">
+    <meta name="twitter:player:width" content="480">
+    <meta name="twitter:player:height" content="360">
+    <meta name="twitter:player:stream:content_type" content="video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;">
+	<!-- Meta tags For Video share on linkedin -->
+	<meta prefix="og: http://ogp.me/ns#" property="og:title" content="{Your content}" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:type" content="{Your content}" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:image" content="{Your content}" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:url" content="{Your content}" />
+	<!--test -->
+	<title>2014 Obama and GOP Federal Budget Proposals - BeachFleischman | Arizona AZ</title>
+	<meta name="robots" content="noodp,noydir"/>
+	<meta name="description" content="BeachFleischman has the summary of how these federal budget proposals impact you and your business."/>
+	<link rel="canonical" href="http://beachfleischman.com/tax-bites/2013/04/2014-obama-and-gop-federal-budget-proposals/" />
+	<meta property='og:locale' content='en_US'/>
+	<meta property='og:type' content='article'/>
+	<meta property='og:title' content='2014 Obama and GOP Federal Budget Proposals - BeachFleischman'/>
+	<meta property='og:description' content='BeachFleischman has the summary of how these federal budget proposals impact you and your business.'/>
+	<meta property='og:url' content='http://beachfleischman.com/tax-bites/2013/04/2014-obama-and-gop-federal-budget-proposals/'/>
+	<meta property='og:site_name' content='BeachFleischman'/>
+	<meta property='fb:admins' content='548560808'/>
+	<meta property='og:image' content='http://beachfleischman.com/wp-content/uploads/2013/04/US_Congress_x.jpg'/>
+	<meta name="twitter:card" content="summary"/>
+	<meta name="twitter:site" content="@beachfleischman"/>
+	<meta name='twitter:image' content='http://beachfleischman.com/wp-content/uploads/2013/04/US_Congress_x-300x225.jpg'/>
+	<meta name="twitter:description" content="BeachFleischman has the summary of how these federal budget proposals impact you and your business."/>
+	<!--end test-->
+    <script src="~/Scripts/clappr.min.js"></script>
+    <script src="~/Scripts/Clappr/clappr.ads.js"></script>
+    <script src="~/Scripts/Clappr/subtitles.js"></script>
+    <script src="~/Scripts/clappr-thumbnails-plugin.js"></script>
+    <script src="~/Scripts/Clappr/clappr-playback-rate-plugin.js"></script>
+    <title>Kazastream | Embed</title>
+    <style>
+        #player-wrapper {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+       
+        video::-internal-media-controls-download-button {
+            display: none;
+        }
+
+        video::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+
+        video::-webkit-media-controls-panel {
+            width: calc(100% + 30px); 
+        }
+   
+    </style>
+</head>
+<body>
+    <div id="player-wrapper"></div>
+    <script type="text/javascript" charset="utf-8">
+        var base_url = '@ConfigurationManager.AppSettings["BaseURL"]'+'@Model.ID'+'/'+'@Model.ID'+ '_';
+        var subtitle_url = '@ConfigurationManager.AppSettings["Vttfile"]'+@Model.ID+'.srt';
+        var thumbs = new Array();
+        var i = 0, no,url,time;
+        var drurations='@Model.Duration';
+        if(drurations=='')
+            drurations=0;
+        for (no = 0; no <=drurations; no++) {
+
+            var ob = {
+                time: i, url: base_url + no+".jpg"
+            };
+            thumbs.push(ob);
+            i++;
+        }
+        var contenturl='@Model.ContentUrl';
+        var videoUrl=contenturl.replace(/amp;/g , '');
+        var path = document.location.href;
+        var arr = path.split('/');
+        var postgeturl = arr[0] + '//' + arr[2]+'/Advertiesment/';
+        var adsToBeShown={
+            text: {
+                wait: 'Wait % seconds...',
+                skip: 'Skip Ad >'
+            }
+        };
+        var Getmidroll=new Array();
+        if(@Model.Ads.Timesloate!=0 && @Model.Ads.Timesloate!=null && @Model.Ads.Timesloate.Length>0){
+
+            for(var i=1;i<@Model.Ads.Timesloate.Length;i++){
+                var obj=postgeturl.concat('@Model.Ads.MidAdsUrl').concat('?i='+i);
+                Getmidroll.push(obj);
+            }
+            adsToBeShown.midRoll= {
+                at: [@Model.Ads.Timesloate],
+                src: [Getmidroll],
+                skip: true,
+                timeout: 5
+            };
+        }
+        if('@Model.Ads.PreAdsUrl' !='')
+        {
+            adsToBeShown.preRoll= {
+                src: postgeturl.concat('@Model.Ads.PreAdsUrl'),
+                skip: true,
+                timeout: 5
+            };
+        }
+        if('@Model.Ads.PostAdsUrl' != '')
+        {
+            adsToBeShown.postRoll={
+                src: postgeturl.concat('@Model.Ads.PostAdsUrl')
+            };
+        }
+
+        var contenturl = '@Model.ContentUrl';
+        var videoUrl = contenturl.replace(/amp;/g, '');
+        var player = new Clappr.Player({
+            source: videoUrl,
+            parentId: "#player-wrapper",
+			height:"100%",
+			width:"100%",
+			baseUrl: '/latest',
+			autoPlay: true,
+			plugins: [ClapprAds, ClapprSubtitle, ClapprThumbnailsPlugin],
+			subtitle: {
+			    src: subtitle_url,
+			    auto: true,
+			    backgroundColor: 'transparent',
+			    fontWeight: 'bold',
+			    fontSize: '16px',
+			    color: 'white',
+			    textShadow: '1px 1px #000',
+			    position: 'initial'
+			},
+			scrubThumbnails: {
+			    spotlightHeight: 84,
+			    thumbs: thumbs
+			},
+			ads: adsToBeShown
+        });
+         document.onkeydown = function(evt) {
+            frameTime = 3;
+                if (evt.keyCode === 37) {
+                    if (player.getCurrentTime() > 0) {
+                       var getback =player.getCurrentTime()- frameTime;
+                       player.seek(getback);
+                    }
+                } else if (evt.keyCode === 39) {
+                    if (player.getCurrentTime() < player.getDuration()) {
+                        var getforward = Math.min(player.getDuration(), player.getCurrentTime() + frameTime);
+                        player.seek(getforward);
+                    }
+                }
+        }
+        $(window).keypress(function (evt) {
+            if (evt.which == 32) {
+                if (player.isPlaying())
+                    player.pause();
+                else
+                    player.play();
+            }
+        });
+    </script>
+</body>
+</html>
